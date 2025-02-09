@@ -2,7 +2,7 @@
 
 此版本为1.0.0版本，后续会增加图生视频功能
 
-代码框架来自https://github.com/MCYUNIDC/mccloud_zhipu_img
+代码框架来自[https://github.com/MCYUNIDC/mccloud_zhipu_img](https://github.com/MCYUNIDC/mccloud_zhipu_img)
 
 # 支持
 
