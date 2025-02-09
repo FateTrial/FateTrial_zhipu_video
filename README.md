@@ -1,8 +1,8 @@
-# helloworld
+# 智谱AI生成视频插件
 
-AstrBot 插件模板
+此版本为1.0.0版本，后续会增加图生视频功能
 
-A template plugin for AstrBot plugin feature
+代码框架来自https://github.com/MCYUNIDC/mccloud_zhipu_img
 
 # 支持
 
