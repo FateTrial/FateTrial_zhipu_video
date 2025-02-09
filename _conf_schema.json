@@ -1,0 +1,16 @@
+{
+    "api_key": {
+        "description": "智谱AI的API密钥",
+        "type": "string",
+        "hint": "请填写你的智谱AI API密钥",
+        "default": "",
+        "obvious_hint": false
+    },
+    "model": {
+        "description": "智谱AI的模型名称",
+        "type": "string",
+        "hint": "智谱AI的视频生成模型",
+        "default": "CogVideoX-Flash",
+        "obvious_hint": false
+    }
+}
