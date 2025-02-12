@@ -1,9 +1,11 @@
 name: FateTrial_zhipu_video
 desc: 智谱AI视频生成插件，支持使用智谱AI的CogVideoX-Flash模型生成视频。
 help: |
-  使用方法：/aivd <提示词> [分辨率]
+  使用方法：/aivd <提示词>
+           /aiivd <图片> 
   示例：
   /aivd 可爱的猫咪
+  /aiivd
 version: v2.0.0
 author: FateTrial
 repo: https://github.com/FateTrial/FateTrial_zhipu_video

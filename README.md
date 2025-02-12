@@ -1,6 +1,6 @@
 # 智谱AI生成视频插件
 
-此版本为1.0.0版本，后续会增加图生视频功能
+此版本为2.0.0版本
 
 代码框架来自[https://github.com/MCYUNIDC/mccloud_zhipu_img](https://github.com/MCYUNIDC/mccloud_zhipu_img)
 
