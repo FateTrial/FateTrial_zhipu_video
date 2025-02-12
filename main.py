@@ -10,6 +10,8 @@ import time
 import aiohttp
 import asyncio
 from typing import Dict, Optional
+from astrbot.core.utils.io import download_image_by_url
+import base64
 
 # 用于跟踪每个用户的状态，防止超时或重复请求
 USER_STATES: Dict[str, Optional[float]] = {}
@@ -105,3 +107,54 @@ class ZhipuVideoPlugin(Star):
             
         except Exception as e:
             yield event.plain_result(f"\n查询失败: {str(e)}")
+    @filter.command("aiivd")
+    async def tuzhuan_video(self, event: AstrMessageEvent):
+        # 检查是否配置了API密钥
+        if not self.api_key:
+            yield event.plain_result("\n请先在配置文件中设置智谱AI的API密钥")
+            return
+        user_id = event.get_sender_id()  # 获取用户ID
+        USER_STATES[user_id] = time.time()  # 记录用户请求的时间
+        yield event.plain_result("杂鱼~还得靠我呢!限你30秒内发送你要查找的图片yo~")  # 提示用户发送图片
+        await asyncio.sleep(30)  # 等待30秒
+        # 如果超时，删除用户状态并通知用户
+        if user_id in USER_STATES:
+            del USER_STATES[user_id]
+            yield event.plain_result("搜索超时了哦，杂鱼~")      
+    @event_message_type(EventMessageType.ALL)
+    async def handle_image(self, event: AstrMessageEvent):
+        user_id = event.get_sender_id()  # 获取发送者的ID
+        if user_id not in USER_STATES:  # 如果用户没有发起请求，跳过
+            return
+        
+        # 检查消息中是否包含图片
+        images = [c for c in event.message_obj.message if isinstance(c, Image)]
+        if not images:
+            return
+        
+        # 删除用户状态，表示用户已提交图片
+        del USER_STATES[user_id]
+        image_url = images[0].url
+        path = await download_image_by_url(image_url)
+        with open(path, "rb") as f:
+            img = f.read()
+            img_base64 = base64.b64encode(img).decode()
+        try:
+            # 创建智谱AI客户端
+            client = ZhipuAI(api_key=self.api_key)
+            
+            # 发送请求
+            response = client.videos.generations(
+                model=self.model,
+                image_url=img_base64,  # 提供的图片URL地址或者 Base64 编码
+                prompt="让画面动起来",
+                with_audio=True,
+            )          
+            chain = [
+                Plain(f"ID：{response.id}")
+            ]
+            yield event.chain_result(chain)
+            
+        except Exception as e:
+            yield event.plain_result(f"\n生成失败: {str(e)}")
+

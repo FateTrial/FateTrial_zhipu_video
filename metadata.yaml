@@ -4,6 +4,6 @@ help: |
   使用方法：/aivd <提示词> [分辨率]
   示例：
   /aivd 可爱的猫咪
-version: v1.0.0
+version: v2.0.0
 author: FateTrial
 repo: https://github.com/FateTrial/FateTrial_zhipu_video
