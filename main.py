@@ -115,12 +115,12 @@ class ZhipuVideoPlugin(Star):
             return
         user_id = event.get_sender_id()  # 获取用户ID
         USER_STATES[user_id] = time.time()  # 记录用户请求的时间
-        yield event.plain_result("杂鱼~还得靠我呢!限你30秒内发送你要查找的图片yo~")  # 提示用户发送图片
+        yield event.plain_result("杂鱼~还得靠我呢!限你30秒内发送你要生成的图片yo~")  # 提示用户发送图片
         await asyncio.sleep(30)  # 等待30秒
         # 如果超时，删除用户状态并通知用户
         if user_id in USER_STATES:
             del USER_STATES[user_id]
-            yield event.plain_result("搜索超时了哦，杂鱼~")      
+            yield event.plain_result("超时了哦，杂鱼~")      
     @event_message_type(EventMessageType.ALL)
     async def handle_image(self, event: AstrMessageEvent):
         user_id = event.get_sender_id()  # 获取发送者的ID
